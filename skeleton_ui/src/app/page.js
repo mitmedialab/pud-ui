@@ -2,46 +2,57 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './page.module.css'
-import Map from './components/map.js'
 import KendallMap from './components/KendallMap.js'
-import KendallSidebar from './components/KendallSidebar'
-import Charts from './components/charts';
-import {useContext, useEffect, useState, createContext} from 'react';
+import KendallControl from './components/KendallControl'
+import KendallDashboard from './components/KendallDashboard';
+import KendallLoading from './components/KendallLoading';
+import {useState} from 'react';
 
 export default function Home() {
-    
-    const [running, setRunning] = useState(false);
+    const [path, setPath] = useState([]);
+    const [floor, setFloor] = useState([]);
+    const [time, setTime] = useState(0);
+    const [formValues, setFormValues] = useState({});
+    const [incentiveHistory, setIncentiveHistory] = useState([]);
+    const [voteList, setVoteList] = useState({});
+    const [expenditureList, setExpenditureList] = useState([]);
+    const [profitList, setProfitList] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const pharseResponse = (response) => {
+      const data = response.data;
+      setFloor(data.floor_data);
+      setPath(data.path_data);
+      setFormValues(data.collected_data.incentive[data.collected_data.incentive.length-1]);
+      setIncentiveHistory(data.collected_data.incentive);
+      setVoteList(data.collected_data.vote_list);
+      setExpenditureList(data.collected_data.expenditures);
+      setProfitList(data.collected_data.profits);
+  }
+
   return (
     <>
-    <KendallSidebar setRunning={setRunning} />
-    <KendallMap running = {running}/>
+    <KendallControl 
+    pharseResponse = {pharseResponse}
+    setTime={setTime} 
+    setFormValues={setFormValues}
+    setLoading={setLoading}
+    formValues={formValues}
+    />
+    <KendallDashboard 
+    incentiveHistory ={incentiveHistory}
+    vote_list={voteList}
+    expenditureList={expenditureList}
+    profitList={profitList}
+    />
+    <KendallMap 
+    floor={floor} 
+    path={path} 
+    time={time}/>
+    <KendallLoading 
+    loading={loading}
+    />
     </>
+    
   )
 }
-
-
-
-// "use client";
-// import Image from 'next/image'
-// import Link from 'next/link'
-// import styles from './page.module.css'
-// import Map from './components/map.js'
-// import KendallMap from './components/KendallMap.js'
-// import Sidebar from './components/sidebar'
-// import Charts from './components/charts';
-// import {useContext, useEffect, useState, createContext} from 'react';
-
-// export const MapContext = createContext(null);
-
-// export default function Home() {
-//   const [map, setMap] = useState(null);
-//   return (
-//     <>
-//     <MapContext.Provider value={map}>
-//     <div> <Sidebar /> </div>
-//     <div className={styles.map}> <Map setMap={setMap} /> </div>
-//     <div> <Charts /> </div>
-//     </MapContext.Provider>
-//     </>
-//   )
-// }
