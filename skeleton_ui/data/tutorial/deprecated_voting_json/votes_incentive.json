@@ -1,0 +1,205 @@
+{
+  "name": "DAO",
+  "color": "hsl(153, 70%, 50%)",
+  "children": [
+    {
+      "name": "1",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        }
+      ]
+    },
+    {
+      "name": "2",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 50
+        },
+        {
+          "name": "0x05",
+          "color": "hsl(7, 70%, 50%)",
+          "ppl": 1,
+          "token": 130
+        }
+      ]
+    },
+    {
+      "name": "3",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 50
+        },
+        {
+          "name": "0x05",
+          "color": "hsl(7, 70%, 50%)",
+          "ppl": 1,
+          "token": 56
+        },
+        {
+          "name": "0x02",
+          "color": "hsl(158, 70%, 50%)",
+          "ppl": 1,
+          "token": 25
+        }
+      ]
+    },
+    {
+      "name": "4",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 30
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 25
+        },
+        {
+          "name": "0x05",
+          "color": "hsl(7, 70%, 50%)",
+          "ppl": 1,
+          "token": 40
+        },
+        {
+          "name": "0x02",
+          "color": "hsl(158, 70%, 50%)",
+          "ppl": 1,
+          "token": 12
+        }
+      ]
+    },
+    {
+      "name": "5",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 50
+        }
+      ]
+    },
+
+    {
+      "name": "6",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 50
+        }
+      ]
+    },
+    {
+      "name": "7",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 50
+        },
+        {
+          "name": "0x05",
+          "color": "hsl(7, 70%, 50%)",
+          "ppl": 1,
+          "token": 4
+        },
+        {
+          "name": "0x02",
+          "color": "hsl(158, 70%, 50%)",
+          "ppl": 1,
+          "token": 99
+        }
+      ]
+    },
+    {
+      "name": "8",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 50
+        }
+      ]
+    },
+    {
+      "name": "9",
+      "color": "hsl(125, 70%, 50%)",
+      "children": [
+        {
+          "name": "0x01",
+          "color": "hsl(8, 70%, 50%)",
+          "ppl": 1,
+          "token": 20
+        },
+        {
+          "name": "0x03",
+          "color": "hsl(315, 70%, 50%)",
+          "ppl": 1,
+          "token": 50
+        }
+      ]
+    }
+  ]
+}
