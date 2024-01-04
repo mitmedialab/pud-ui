@@ -94,14 +94,13 @@ const KendallMap = ({floor,path,time}) => {
   return (
     <DeckGL
       initialViewState={viewState}
-      controller={true}
+      controller= {true}
       layers={layers}
-      getTooltip={getTooltip}
-    >
+      getTooltip={getTooltip}>
       <Map 
         mapStyle={mapStyle}
-        mapboxAccessToken={mapboxToken}
-      />
+        mapboxAccessToken={mapboxToken}>
+      </Map>
     </DeckGL>
   );
 };

@@ -7,9 +7,7 @@ import { useState, useEffect } from 'react';
 export default function KendallControl({
     pharseResponse,
     setTime,
-    setFormValues,
     setLoading,
-    formValues
     }) {
 
     //Animation for traffic flow
@@ -33,12 +31,7 @@ export default function KendallControl({
     useEffect(() => {
         const animate1 = () => {
             if (running) {
-                console.log(Math.max(...Object.values(formValues)));
-                if (Math.max(...Object.values(formValues)) <= 0) {
-                    stopModel();
-                }else{
-                    stepModel();
-                }
+                stepModel();
             }
         };
         if (!running) {
@@ -48,15 +41,7 @@ export default function KendallControl({
         setSecondInterval(setInterval(animate1, 1000));
 
         return () => { clearInterval(interval1);}
-    }, [running,formValues]);
-
-    //Panels
-    const handleChange = (event) => {
-        setFormValues({
-            ...formValues,
-            [event.target.id]: event.target.value
-        });
-    };
+    }, [running]);
 
     //Control Buttons
     const [isActive, setIsActive] = useState(false);
@@ -141,26 +126,6 @@ export default function KendallControl({
             </div>
             <div className={styles.sidebarBody}>
                 <h2> Init Incentive Intensity</h2>
-                <form>
-                    <span className={styles.sliderLabel}>Workforce Housing</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.workforce_housing} step="0.01" className={styles.slider} id="workforce_housing" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Early Career Housinge</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.early_career_housing} step="0.01" className={styles.slider} id="early_career_housinge" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Executive Housing</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.executive_housing} step="0.01" className={styles.slider} id="executive_housing" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Family Housing</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.family_housing} step="0.01" className={styles.slider} id="family_housing" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Senior Housing</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.senior_housing} step="0.01" className={styles.slider} id="senior_housing" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Office/lab</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.office_lab} step="0.01" className={styles.slider} id="office_lab" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Daycare</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.daycare} step="0.01" className={styles.slider} id="daycare" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Phamacy</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.phamacy} step="0.01" className={styles.slider} id="phamacy" onChange={handleChange}/>
-                    <span className={styles.sliderLabel}>Grocery</span>
-                    <input type="range" min="0" max="1" defaultValue={formValues.grocery} step="0.01" className={styles.slider} id="grocery" onChange={handleChange}/>
-                </form>
                 <button className={styles.activeButton} id="start" onClick={startModel}>Start</button>
             </div>
             <div className={styles.sidebarFooter}>

@@ -23,11 +23,11 @@ export default function Home() {
       const data = response.data;
       setFloor(data.floor_data);
       setPath(data.path_data);
-      setFormValues(data.collected_data.incentive[data.collected_data.incentive.length-1]);
-      setIncentiveHistory(data.collected_data.incentive);
-      setVoteList(data.collected_data.vote_list);
-      setExpenditureList(data.collected_data.expenditures);
-      setProfitList(data.collected_data.profits);
+      // setFormValues(data.collected_data.incentive[data.collected_data.incentive.length-1]);
+      // setIncentiveHistory(data.collected_data.incentive);
+      // setVoteList(data.collected_data.vote_list);
+      // setExpenditureList(data.collected_data.expenditures);
+      // setProfitList(data.collected_data.profits);
   }
 
   return (
@@ -38,12 +38,6 @@ export default function Home() {
     setFormValues={setFormValues}
     setLoading={setLoading}
     formValues={formValues}
-    />
-    <KendallDashboard 
-    incentiveHistory ={incentiveHistory}
-    vote_list={voteList}
-    expenditureList={expenditureList}
-    profitList={profitList}
     />
     <KendallMap 
     floor={floor} 
