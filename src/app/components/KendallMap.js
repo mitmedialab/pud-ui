@@ -1,10 +1,12 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 
 import Map from "react-map-gl";
 import DeckGL from "@deck.gl/react";
-import { GeoJsonLayer,PathLayer} from "@deck.gl/layers";
+import { GeoJsonLayer,IconLayer} from "@deck.gl/layers";
 import {TripsLayer} from '@deck.gl/geo-layers';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import PieChartTooltip from "./tooltip/PieChartTooltip";
+import InfoTooltip from "./tooltip/InfoTooltip";
 
 const mapboxToken = "pk.eyJ1IjoiamFqYW1vYSIsImEiOiJjbDhzeDI4aHgwMXh6M3hrbmVxbG9vcDlyIn0.cdD4-PP7QcxegAsxlhC3mA";
 const mapStyle = "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
@@ -19,46 +21,31 @@ const viewState = {
   pitch: 30,
   bearing: -36,
 };
-
-//Tooltip
-const getTooltip = ({ object }) => {
-  let tip = "";
-  if (object) {
-    for(let key in object.properties) {
-      tip += `<div><b>${key}:  </b>${object.properties[key]}</div>`
-    }
-  } 
-  return (
-    object && {
-      html: tip,
-      style: {
-        background: "#121212",
-        border: "1px solid #2C2C2C",
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-        borderRadius: "8px",
-        fontFamily: "Inter",
-        fontStyle: "normal",
-        fontWeight: "700",
-        fontSize: "12px",
-        color: "#FFFFFF",
-      },
-    }
-  );
-  };
-
 //Fill color
-const getFillColor = (d) => {
-  if(d.properties.new){
+const getFloorColor = (d) => {
+  if(d.new){
     return [251, 255, 125, 200]
-  }else if (d.properties.is_project){
+  }else if (d.is_project){
     return [35, 51, 82, 180]
   }else{
     return [110, 113, 117, 200]
   }
 };
-
+const getPeojectColor = (d) => {
+  if(d.properties.status == "building"){
+    return [242, 0, 117, 200]
+  }
+  else if(d.properties.status == "built"){
+    return [0,150,0,parseInt(250*(1-d.properties.round/5))]
+  }
+  else {
+    return [140, 140, 140, 250]
+  }
+}
 //Map
-const KendallMap = ({floor,path,time}) => {
+const KendallMap = ({floor,project,path,time}) => {
+  const [hoverInfoProject, setHoverInfoProject] = useState({});
+  const [hoverInfoFloor, setHoverInfoFloor] = useState({});
   const layers = [
     new GeoJsonLayer({
       id: "geojson",
@@ -71,11 +58,29 @@ const KendallMap = ({floor,path,time}) => {
       lineWidthMinPixels: 1,
       getLineWidth: 0.5,
       lineWidthUnits: "meters",
-      getFillColor: d => getFillColor(d),
+      getFillColor: d => getFloorColor(d),
       pickable: true,
       autoHighlight: true,
       highlightColor: [242, 0, 117, 120],
+      onHover: info => setHoverInfoFloor(info),
     }),
+    new IconLayer({
+      id: 'icon-layer',
+      data : project,
+      pickable: true,
+      autoHighlight: true,
+      highlightColor: [242, 0, 117, 255],
+      onHover: info => setHoverInfoProject(info),
+      iconAtlas: 'location.png',
+      iconMapping: {
+        marker: {x: 0, y: 0, width: 128, height: 128, mask: true}
+      },
+      getIcon: d => 'marker',
+      sizeScale: 5,
+      getPosition: d => [d.coordinates[0],d.coordinates[1],d.coordinates[2]+25],
+      getSize: d => 5,
+      getColor: d => getPeojectColor(d),
+    }), 
     new TripsLayer({
       id: 'trips',
       data: path,
@@ -92,16 +97,24 @@ const KendallMap = ({floor,path,time}) => {
   ];
 
   return (
+    <div>
     <DeckGL
       initialViewState={viewState}
       controller= {true}
       layers={layers}
-      getTooltip={getTooltip}>
+      >
       <Map 
         mapStyle={mapStyle}
         mapboxAccessToken={mapboxToken}>
       </Map>
     </DeckGL>
+    {
+      hoverInfoProject && <PieChartTooltip hoverInfo={hoverInfoProject} />
+    }
+    {
+      hoverInfoFloor && <InfoTooltip hoverInfo={hoverInfoFloor} />
+    }
+    </div>
   );
 };
 

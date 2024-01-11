@@ -7,7 +7,8 @@ export default function KendallDashboard({
     incentiveHistory,
     vote_list,
     expenditureList,
-    profitList}) {
+    profitList
+}) {
     const materialColors = {
         "workforce_housing":'#FF7043', 
         "early_career_housing":'#E91E63', 
@@ -24,8 +25,8 @@ export default function KendallDashboard({
     //create Pie Chart
     const pie_chart = useRef(null); 
     useEffect(() => {
-        const element = document.getElementById('pie');
-        pie_chart.current = echarts.init(element);
+        // const element = document.getElementById('pie');
+        // pie_chart.current = echarts.init(element);
     },[]);
     //update Pie Chart when incentive changes
     useEffect(() => {
@@ -79,8 +80,8 @@ export default function KendallDashboard({
      //create Radar Chart
     const radar_chart = useRef(null);
     useEffect(() => {
-        const element = document.getElementById('radar');
-        radar_chart.current = echarts.init(element);
+        // const element = document.getElementById('radar');
+        // radar_chart.current = echarts.init(element);
     },[]);
     //update Radar Chart when incentiveHistory changes
     useEffect(() => {
@@ -133,8 +134,8 @@ export default function KendallDashboard({
     //create Line Chart
     const line_chart = useRef(null);
     useEffect(() => {
-        const element = document.getElementById('line');
-        line_chart.current = echarts.init(element);
+        // const element = document.getElementById('line');
+        // line_chart.current = echarts.init(element);
     },[]);
     //update Line Chart when incentiveHistory changes  
     useEffect(() => {
@@ -238,8 +239,8 @@ export default function KendallDashboard({
     //create Bar Chart
     const bar_chart = useRef(null);
     useEffect(() => {
-        const element = document.getElementById('bar');
-        bar_chart.current = echarts.init(element);
+        // const element = document.getElementById('bar');
+        // bar_chart.current = echarts.init(element);
     },[]);
     //update Bar Chart when incentiveHistory changes
     useEffect(() => {
