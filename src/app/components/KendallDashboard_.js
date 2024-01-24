@@ -7,13 +7,32 @@ import {useState, useEffect, useRef, use} from 'react';
 const KendallDashboard = ({collected_data}) => {  
     const [demandWeightData, setDemandWeightData] = useState([]);
     const [supplyList, setSupplyList] = useState(null);
+    const [demandGap, setDemandGap] = useState(null);
     const [residentData, setResidentData] = useState(null);
     const [isChartsVisible, setChartsVisibility] = useState(true);
     
     useEffect(() => {
         if (collected_data.supply_list){
             let data = collected_data.supply_list;
+            data = data.map(item => {
+            let newItem = {};
+            for (let key in item) {
+                newItem[key] = Math.log(item[key]);
+            }
+            return newItem;
+            });
             setSupplyList(data);
+        }
+        if (collected_data.demand_gap){
+            let data = collected_data.demand_gap;
+            // data = data.map(item => {
+            //     let newItem = {};
+            //     for (let key in item) {
+            //         newItem[key] = item[key]/data[0][key];
+            //     }
+            //     return newItem;
+            //     });
+            setDemandGap(data);
         }
         if (collected_data.demand_weight){
             setDemandWeightData(collected_data.demand_weight);
@@ -54,8 +73,8 @@ const KendallDashboard = ({collected_data}) => {
             </div>
         </div>
         <div className={styles.lineBox}>
-            <h2> Supply List</h2>
-            <LineChart width={"100%"} height={"100%"} data={supplyList} />
+            <h2> Demand Gap</h2>
+            <LineChart width={"100%"} height={"100%"} data={demandGap} />
         </div>
         <div className={styles.barBox}>
             <h2>developer Panel</h2>

@@ -10,46 +10,78 @@ const PieChartTooltip = ({hoverInfo}) => {
       if (hoverInfo && chartRef.current && hoverInfo.object) {
         const object = hoverInfo.object;
         setExpectedEdowment(parseInt(object.properties.endowment));
-        setExpectedProfit(parseInt(object.properties.expected_profit));
-        setShow(true);
-        const data = object.properties.demand_gap;
+        setExpectedProfit(parseInt(object.properties.profit));
+        const building_plan = object.properties.building_plan;
+        const demand_gap = object.properties.demand_gap;
+        const status = object.properties.status;
         const chart = echarts.init(chartRef.current);
         const option = {
-          legend: {
-            left: 'center',
-            bottom: '10%',
-            textStyle: {
-              color: '#fff',
-              fontSize: 10,
-            },
-          },
+          // legend: {
+          //   left: 'center',
+          //   bottom: '10%',
+          //   textStyle: {
+          //     color: '#fff',
+          //     fontSize: 10,
+          //   },
+          // },
           series: [
             {
+              name: 'Demand Gap',
               type: 'pie',
-              data: Object.entries(data).map(([key, value]) => ({name: key, value: value})),
+              roseType: 'radius',
+              data: Object.entries(demand_gap).map(([key, value]) => ({name: key, value: value})),
               radius: ['30%', '70%'],
-              center: ['50%', '35%'],
+              center: ['50%', '25%'],
               label: {
                 show: true,
-                formatter: '{d}%', 
-                position: 'inside'
+                formatter: '{b}:{c}', 
+                position: 'inside',
+                textStyle: {
+                  color: '#fff',
+                  fontSize: 8,
+                },
+            },
+            labelLine: {
+                show: false // Set to false to hide label lines
+            },
+            grid : {
+              bottom: '0%',
+            },
+            },
+            {
+              name: 'Building Plan',
+              type: 'pie',
+              roseType: 'radius',
+              data: Object.entries(building_plan).map(([key, value]) => ({name: key, value: value})),
+              radius: ['30%', '70%'],
+              center: ['50%', '75%'],
+              label: {
+                show: true,
+                formatter: '{b}:{c}', 
+                position: 'inside',
+                textStyle: {
+                  color: '#fff',
+                  fontSize: 8,
+                },
             },
             labelLine: {
                 show: false // Set to false to hide label lines
             },
             grid : {
               top: '0%',
-              bottom: '10%',
             },
             },
           ],
         };
         chart.setOption(option);
+        if (status == "building"|status == "built"){
+          setShow(true);
+        }
         return () => {
           chart.dispose(); // Dispose the chart when the component unmounts
           setShow(false);
-      }
         }
+      }
     }, [hoverInfo]);
   
     return <div
@@ -76,8 +108,7 @@ const PieChartTooltip = ({hoverInfo}) => {
     <br/>
     <p>Expected Profit:{expectedProfit}</p>
     <p>Expected Endowment:{expectedEndowment}</p>
-    <div ref={chartRef} style={{width: '300px', height: '350px',}}></div>
-    
+    <div ref={chartRef} style={{width: '200px', height: '300px',}}></div>
     </div>
   };
 
