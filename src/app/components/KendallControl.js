@@ -128,7 +128,29 @@ export default function KendallControl({
                 <p>Prosocial Urban Development</p>
             </div>
             <div className={styles.sidebarBody}>
-                <h2> Init Incentive Intensity</h2>
+                <h2> Control Pannel (Todo) </h2>
+                <form>
+                    <h3>Basic Config</h3><br/>
+                    <span className={styles.sliderLabel}>Max Density</span>
+                    <input type="range" min="3" max="10" defaultValue={10} step="1" className={styles.slider} id="max_density"/>
+                    <span className={styles.sliderLabel}>Life Circle Range</span>
+                    <input type="range" min="0" max="2000" defaultValue={1500} step="100" className={styles.slider} id="life_circle_range"/>
+                    <h3>Demand List</h3><br/>
+                    <span className={styles.sliderLabel}>Daycare</span>
+                    <input type="range" min="0" max="1000" defaultValue={250} step="10" className={styles.slider} id="daycare"/>
+                    <span className={styles.sliderLabel}>Youth_Center</span>
+                    <input type="range" min="0" max="1000" defaultValue={500} step="10" className={styles.slider} id="youth_center"/>
+                    <span className={styles.sliderLabel}>Elder_Facility</span>
+                    <input type="range" min="0" max="1000" defaultValue={750} step="10" className={styles.slider} id="elder_facility"/>
+                    <span className={styles.sliderLabel}>Pharmacy</span>
+                    <input type="range" min="0" max="1000" defaultValue={600} step="10" className={styles.slider} id="pharmacy"/>
+                    <span className={styles.sliderLabel}>Grocery</span>
+                    <input type="range" min="0" max="1000" defaultValue={120} step="10" className={styles.slider} id="grocery"/>
+                    <span className={styles.sliderLabel}>Office</span>
+                    <input type="range" min="0" max="1000" defaultValue={50} step="10" className={styles.slider} id="office"/>
+                    <span className={styles.sliderLabel}>Housing</span>
+                    <input type="range" min="0" max="1000" defaultValue={50} step="10" className={styles.slider} id="housing"/>
+                </form>
                 <button className={styles.activeButton} id="start" onClick={startModel}>Start</button>
             </div>
             <div className={styles.sidebarFooter}>

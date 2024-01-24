@@ -20,9 +20,9 @@
     margin-top: 20px;
     margin-bottom: 10px;
     background-color: #151515e9;
-    height: 15vh;
+    height: 10vh;
     font-size: 0.5em;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 10px;
     box-shadow: #0c0c0c 0px 0px 10px 0px;
   }
@@ -33,7 +33,7 @@
   
   .sidebarBody {
     background-color: #151515e9;
-    height: 60vh;
+    height: 65vh;
     margin-bottom: 10px; 
     font-size: 0.5em;
     padding: 10px 20px;
