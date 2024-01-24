@@ -84,3 +84,11 @@
     height: 100%;
 }
 
+.largeText{
+    font-size: 10em;
+    font-weight: bold;
+    color: #fff;
+    margin: 40px 0;
+    text-align: center;
+}
+
