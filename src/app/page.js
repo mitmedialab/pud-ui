@@ -24,6 +24,7 @@ export default function Home() {
       setPath(data.path_data);
       setCollectedData(data.collected_data)
       // setFormValues(data.collected_data.incentive[data.collected_data.incentive.length-1]);
+      return data.stop
   }
 
   return (
