@@ -5,12 +5,14 @@ const PieChartTooltip = ({hoverInfo}) => {
     const chartRef = useRef(null);
     const [expectedProfit,setExpectedProfit] = useState(null);
     const [expectedEndowment,setExpectedEdowment] = useState(null);
+    const [projectId, setProjectId] = useState(null);
     const [show, setShow] = useState(false);
     useEffect(() => {
       if (hoverInfo && chartRef.current && hoverInfo.object) {
         const object = hoverInfo.object;
         setExpectedEdowment(parseInt(object.properties.endowment));
         setExpectedProfit(parseInt(object.properties.profit));
+        setProjectId(object.properties.unique_id);
         const building_plan = object.properties.building_plan;
         const demand_gap = object.properties.demand_gap;
         const status = object.properties.status;
@@ -24,14 +26,28 @@ const PieChartTooltip = ({hoverInfo}) => {
           //     fontSize: 10,
           //   },
           // },
+          title: [
+            {
+              subtext: 'Demand Gap',
+              left: '50%',
+              top: '40%',
+              textAlign: 'center',
+            },
+            {
+              subtext: 'Built List',
+              left: '50%',
+              bottom: '2%',
+              textAlign: 'center',
+            },
+          ],
           series: [
             {
               name: 'Demand Gap',
               type: 'pie',
               roseType: 'radius',
-              data: Object.entries(demand_gap).map(([key, value]) => ({name: key, value: value})),
+              data: demand_gap && Object.entries(demand_gap).map(([key, value]) => ({name: key, value: value})),
               radius: ['30%', '70%'],
-              center: ['50%', '25%'],
+              center: ['50%', '22%'],
               label: {
                 show: true,
                 formatter: '{b}:{c}', 
@@ -52,9 +68,9 @@ const PieChartTooltip = ({hoverInfo}) => {
               name: 'Building Plan',
               type: 'pie',
               roseType: 'radius',
-              data: Object.entries(building_plan).map(([key, value]) => ({name: key, value: value})),
+              data: building_plan && Object.entries(building_plan).map(([key, value]) => ({name: key, value: value})),
               radius: ['30%', '70%'],
-              center: ['50%', '75%'],
+              center: ['50%', '70%'],
               label: {
                 show: true,
                 formatter: '{b}:{c}', 
@@ -104,11 +120,11 @@ const PieChartTooltip = ({hoverInfo}) => {
       display: show ? "block" : "none",
       // padding: "6px",
     }}>
-    <h2>Project</h2>
+    <h2>Project #{projectId}</h2>
     <br/>
-    <p>Expected Profit:{expectedProfit}</p>
-    <p>Expected Endowment:{expectedEndowment}</p>
-    <div ref={chartRef} style={{width: '200px', height: '300px',}}></div>
+    <p>Profit : ${expectedProfit} </p>
+    <p>Endowment : ${expectedEndowment}/household</p>
+    <div ref={chartRef} style={{width: '200px', height: '350px',}}></div>
     </div>
   };
 

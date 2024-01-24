@@ -8,6 +8,8 @@ export default function KendallControl({
     pharseResponse,
     setTime,
     setLoading,
+    setFormValues,
+    formValues,
     }) {
 
     //Animation for traffic flow
@@ -91,12 +93,25 @@ export default function KendallControl({
         stopModel();
         event.preventDefault();
         setIsSetActive(true);
+        setLoading(true);
         axios.post('http://127.0.0.1:5001/reset',formValues)
             .then(response => {
                 pharseResponse(response);
                 window.location.reload();
-            });
+            })
+            .finally(() => {
+                setLoading(false);
+            }
+            );
     }
+
+    const handleChange = (event) => {
+        if(event.target.id == "max_density"){formValues.project_config.max_buildable_floors = parseInt(event.target.value);}
+        else if(event.target.id == "life_circle_range"){formValues.building_config.life_circle_radius = parseInt(event.target.value);}
+        else {formValues.resident_config.demand_list[event.target.id] = parseInt(event.target.value);}
+        setFormValues(formValues);
+        console.log(formValues);
+    };
 
     //Trigger Show
     const [isSidebarVisible, setSidebarVisibility] = useState(true);
@@ -128,39 +143,40 @@ export default function KendallControl({
                 <p>Prosocial Urban Development</p>
             </div>
             <div className={styles.sidebarBody}>
-                <h2> Control Pannel (Todo) </h2>
+                <h2> Control Pannel </h2>
                 <form>
                     <h3>Basic Config</h3><br/>
                     <span className={styles.sliderLabel}>Max Density</span>
-                    <input type="range" min="3" max="10" defaultValue={10} step="1" className={styles.slider} id="max_density"/>
+                    {formValues && formValues.project_config && formValues.project_config.max_buildable_floors && (
+                    <input type="range" min="3" max="10" defaultValue={formValues.project_config.max_buildable_floors} step="1" className={styles.slider} id="max_density" onChange={handleChange}/>
+                    )}
                     <span className={styles.sliderLabel}>Life Circle Range</span>
-                    <input type="range" min="0" max="2000" defaultValue={1500} step="100" className={styles.slider} id="life_circle_range"/>
+                    {formValues && formValues.building_config && formValues.building_config.life_circle_radius && (
+                        <input type="range" min="0" max="2000" defaultValue={formValues.resident_config.life_circle_radius} step="100" className={styles.slider} id="life_circle_range" onChange={handleChange}/>
+                    )}
                     <h3>Demand List</h3><br/>
-                    <span className={styles.sliderLabel}>Daycare</span>
-                    <input type="range" min="0" max="1000" defaultValue={250} step="10" className={styles.slider} id="daycare"/>
-                    <span className={styles.sliderLabel}>Youth_Center</span>
-                    <input type="range" min="0" max="1000" defaultValue={500} step="10" className={styles.slider} id="youth_center"/>
-                    <span className={styles.sliderLabel}>Elder_Facility</span>
-                    <input type="range" min="0" max="1000" defaultValue={750} step="10" className={styles.slider} id="elder_facility"/>
-                    <span className={styles.sliderLabel}>Pharmacy</span>
-                    <input type="range" min="0" max="1000" defaultValue={600} step="10" className={styles.slider} id="pharmacy"/>
-                    <span className={styles.sliderLabel}>Grocery</span>
-                    <input type="range" min="0" max="1000" defaultValue={120} step="10" className={styles.slider} id="grocery"/>
-                    <span className={styles.sliderLabel}>Office</span>
-                    <input type="range" min="0" max="1000" defaultValue={50} step="10" className={styles.slider} id="office"/>
-                    <span className={styles.sliderLabel}>Housing</span>
-                    <input type="range" min="0" max="1000" defaultValue={50} step="10" className={styles.slider} id="housing"/>
+                    {   
+                        formValues && formValues.resident_config && formValues.resident_config.demand_list && formValues.resident_config.demand_list.map((demand, index) => {
+                            return (
+                                <div key={index}>
+                                    <span className={styles.sliderLabel}>{formValues.amenity_list[index]}</span>
+                                    <input type="range" min="0" max="1000" defaultValue={demand} step="10" className={styles.slider} id={index} onChange={handleChange}/>
+                                </div>
+                            )
+                        })
+                    }
                 </form>
-                <button className={styles.activeButton} id="start" onClick={startModel}>Start</button>
+                <button className={styles.activeButton} id="start" onClick={startModel}>Start Model</button>
             </div>
             <div className={styles.sidebarFooter}>
                 <div className={styles.left}>
-                    <button className={isSetActive? styles.activeButton:styles.button} id="set" onClick={setModel}>Set</button>
-                    <button className={styles.button} id="stop" onClick={stopModel}>Stop</button>
+                    <button className={isSetActive? styles.activeButton:styles.button} id="set" onClick={setModel}>Set Params</button>
+                    <button className={styles.button} id="step" onClick={stepModel}>Step Model</button>
                 </div>
                 <div className={styles.right}>
-                    <button className={styles.button} id="step" onClick={stepModel}>Step</button>
-                    <button className={isResetActive? styles.activeButton : styles.button} id="reset" onClick={resetModel}>Reset</button>
+                    <button className={isResetActive? styles.activeButton : styles.button} id="reset" onClick={resetModel}>Reset Params</button>
+                    <button className={styles.button} id="stop" onClick={stopModel}>Stop Model</button>
+                    
                 </div>
                 
             </div>

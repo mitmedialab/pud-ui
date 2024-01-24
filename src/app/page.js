@@ -4,7 +4,7 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import KendallMap from './components/KendallMap.js'
 import KendallControl from './components/KendallControl'
-import KendallDashboard from './components/KendallDashboard_';
+import KendallDashboard from './components/KendallDashboard';
 import KendallLoading from './components/KendallLoading';
 import {useState} from 'react';
 
@@ -23,9 +23,9 @@ export default function Home() {
       setProject(data.project_data);
       setPath(data.path_data);
       setCollectedData(data.collected_data)
-      // setFormValues(data.collected_data.incentive[data.collected_data.incentive.length-1]);
+      setFormValues(data.config_data);
       return data.stop
-  }
+    }
 
   return (
     <>
